@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Batman Year One",
+    "publisher": "DC",
+    "condition": "jó",
+    "quantity": 2,
+    "location": "Polc A1",
+    "price": 4500,
+    "cover": "https://picsum.photos/200/300"
+  },
+  {
+    "id": 2,
+    "title": "Spider-Man Blue",
+    "publisher": "Marvel",
+    "condition": "új",
+    "quantity": 1,
+    "location": "Doboz B2",
+    "price": 6200,
+    "cover": "https://picsum.photos/200/301"
+  }
+]
