@@ -4,28 +4,23 @@
 <meta charset="UTF-8">
 <title>Képregény Raktár</title>
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f0f14">
 </head>
+
 <body>
 
 <h1>📚 Képregény Raktár</h1>
 
-<!-- STATISZTIKA -->
-<div class="stats">
-  <div>📦 Összes: <span id="stat-total">0</span></div>
-  <div>⭐ Wishlist: <span id="stat-wishlist">0</span></div>
-  <div>📖 Olvasott: <span id="stat-read">0</span></div>
-</div>
-
 <!-- FORM -->
 <div class="form-box">
-  <input type="text" id="title" placeholder="Cím">
-  <input type="text" id="publisher" placeholder="Kiadó">
+  <input id="title" placeholder="Cím">
+  <input id="publisher" placeholder="Kiadó">
 
   <select id="status">
-    <option value="Nem olvasott">Nem olvasott</option>
-    <option value="Olvasott">Olvasott</option>
+    <option>Nem olvasott</option>
+    <option>Olvasott</option>
   </select>
 
   <label>
@@ -38,28 +33,48 @@
   <button onclick="addComic()">➕ Hozzáadás</button>
 </div>
 
-<!-- KERESŐ + RENDEZÉS -->
-<div class="top-bar">
-  <input type="text" id="search" placeholder="🔎 Keresés..." oninput="renderComics()">
-
-  <select id="sort" onchange="renderComics()">
-    <option value="new">Legújabb</option>
-    <option value="old">Legrégebbi</option>
-    <option value="az">A-Z</option>
-    <option value="za">Z-A</option>
-  </select>
-</div>
-
-<!-- TABOK -->
-<div class="tabs">
-  <button onclick="setTab('all')">Összes</button>
-  <button onclick="setTab('wishlist')">Wishlist</button>
-  <button onclick="setTab('read')">Olvasott</button>
-</div>
+<!-- KERESŐ -->
+<input id="search" placeholder="Keresés..." oninput="renderComics()">
 
 <!-- LISTA -->
 <div id="comic-list"></div>
 
+<!-- FIREBASE + APP -->
+<script type="module">
+
+// 1. Firebase init
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "XXX",
+  authDomain: "XXX",
+  projectId: "XXX",
+  storageBucket: "XXX",
+  messagingSenderId: "XXX",
+  appId: "XXX"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const comicsRef = collection(db, "comics");
+
+// 2. globálissá tesszük
+window.db = db;
+window.comicsRef = comicsRef;
+window.firestore = { addDoc, getDocs, deleteDoc, doc, updateDoc };
+
+</script>
+
 <script src="app.js"></script>
+
 </body>
 </html>
